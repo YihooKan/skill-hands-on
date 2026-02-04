@@ -1,0 +1,15 @@
+---
+# Documentation for the generic tests macros stores in tests/generic/*.sql
+
+version: 2
+
+macros:
+  - name: test_not_empty_or_null_string
+    description: '{{ doc("test_not_empty_or_null_string") }}'
+    arguments:
+      - name: model
+        description: "Represents the model being tested, inject by dbt."
+      - name: column_name
+        description: "Represents the column name being tested, inject by dbt."
+    docs:
+      show: true

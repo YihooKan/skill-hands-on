@@ -1,0 +1,14 @@
+services:
+  db:
+    image: postgres:latest # 使用するPostgreSQLのバージョン
+    container_name: skill_hands_on_postgres
+    environment:
+      POSTGRES_USER: admin # データベースユーザー名
+      POSTGRES_PASSWORD: admin # データベースパスワード
+      # POSTGRES_DB: skill_hands_on_db  # データベース名
+    ports:
+      - 5432:5432 # ホストの5432ポートをコンテナの5432ポートにマッピング
+    volumes:
+      - ./postgres:/var/lib/postgresql # データの永続化 before 18より前のバージョンの場合は /var/lib/postgresql/dataとする
+    # command: ["postgres", "-c", "config_file=/etc/postgresql/postgresql.conf"] # 設定ファイルカスタマイズ用（後述）
+    restart: always # コンテナが停止したら自動再起動
