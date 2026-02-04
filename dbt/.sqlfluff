@@ -1,0 +1,29 @@
+[sqlfluff]
+dialect = postgres
+templater = jinja
+max_line_length = 88
+# L032: ``structure.using``
+# ref: https://docs.sqlfluff.com/en/stable/rules.html#rule-structure.using
+# USING reduces clutter compared to ON, so we support the use.
+# RF02: ``references.qualification``
+# ref: https://docs.sqlfluff.com/en/stable/rules.html#rule-references.qualification
+# When joining tables with USING, we don't need table qualification.
+exclude_rules = structure.using, references.qualification, layout.indent, layout.cte_bracket, layout.select_targets, layout.spacing
+
+[sqlfluff:templater:jinja:context]
+target_date = 2026-01-01
+
+# Lowercase keywords, identifiers etc. because they should be syntax highlighted by IDEs
+[sqlfluff:rules:capitalisation.keywords]
+capitalisation_policy = lower
+[sqlfluff:rules:capitalisation.identifiers]
+extended_capitalisation_policy = lower
+[sqlfluff:rules:capitalisation.functions]
+extended_capitalisation_policy = lower
+[sqlfluff:rules:capitalisation.literals]
+capitalisation_policy = lower
+[sqlfluff:rules:capitalisation.types]
+extended_capitalisation_policy = lower
+
+[sqlfluff:rules:convention.terminator]
+multiline_newline = True

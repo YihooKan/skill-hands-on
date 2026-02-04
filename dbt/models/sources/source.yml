@@ -1,0 +1,42 @@
+---
+# This is a sample source configuration file for dbt.
+
+version: 2
+
+sources:
+  - name: "skill_hands_on_source"
+    description: "Mock data for the skill_hands_on_dbt project."
+    dbname: "{{ target.database }}"
+    schema: "{{ target.schema}}"
+    tables:
+      - name: employees
+        description: "Table containing employee details."
+        columns:
+          - name: employee_id
+            description: "The unique identifier for each employee."
+          - name: first_name
+            description: "The first name of the employee."
+          - name: last_name
+            description: "The last name of the employee."
+          - name: email
+            description: "The email address of the employee."
+          - name: job_id
+            description: "The job identifier for the employee."
+          - name: loaded_at
+            description: >
+              "Timestamp when the record was loaded into the database."
+
+      - name: jobs
+        description: "Table containing job details."
+        columns:
+          - name: job_id
+            description: "The unique identifier for each job."
+          - name: job_title
+            description: "The title of the job."
+          - name: min_salary
+            description: "The minimum salary for the job."
+          - name: max_salary
+            description: "The maximum salary for the job."
+          - name: loaded_at
+            description: >
+              "Timestamp when the record was loaded into the database."

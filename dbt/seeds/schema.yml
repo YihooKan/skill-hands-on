@@ -1,0 +1,18 @@
+---
+# jobs_mapping_jp.csv
+
+version: 2
+
+seeds:
+  - name: jobs_mapping_jp  # jobs_mapping_jp.csv
+    description: "A mapping of job titles in Japanese."
+    columns:
+      - name: job_id
+        description: "The unique identifier for each job."
+        data_tests:
+          - not_null
+          - unique
+      - name: job_title_jp
+        description: "The job title of the job in Japanese."
+        data_tests:
+          - not_empty_or_null_string

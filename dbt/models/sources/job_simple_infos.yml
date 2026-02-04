@@ -1,0 +1,38 @@
+---
+# job_simple_infos.sql
+
+version: 2
+
+models:
+  - name: job_simple_infos
+    description: "A model that selects job IDs and titles from the jobs table."
+    columns:
+      - name: job_id
+        description: "The unique identifier for each job."
+        data_tests:
+          - not_null
+          - unique
+      - name: job_title
+        description: "The title of the job."
+        data_tests:
+          - not_null
+
+unit_tests:
+  - name: test_job_infos_can_be_extracted_from_raw_data
+    description: >
+      "Test the job IDs and titles can be selected correctly from raw data."
+    model: job_simple_infos
+    given:
+      - input: source('skill_hands_on_source', 'jobs')
+        rows:
+          - job_id: "10"
+            job_title: "lead engineer"
+          - job_id: "13"
+            job_title: "backend engineer"
+
+    expect:
+      rows:
+        - job_id: "10"
+          job_title: "lead engineer"
+        - job_id: "13"
+          job_title: "backend engineer"

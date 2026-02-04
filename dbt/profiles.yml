@@ -1,0 +1,27 @@
+---
+# dbt default profile configuration file
+default:
+  target: dev
+  outputs:
+    _common: &common
+      type: postgres
+      host: localhost
+      user: admin
+      password: admin
+      port: 5432
+      dbname: skill_hands_on_db
+      threads: 1
+      keepalives_idle: 1
+      connect_timeout: 10
+
+    _dev: &dev
+      schema: dev
+
+    _staging: &staging
+      schema: staging
+
+    dev:
+      <<: [*common, *dev]
+
+    staging:
+      <<: [*common, *staging]
