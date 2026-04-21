@@ -1,7 +1,6 @@
-from dagster import Definitions
-from .defs.assets import hello_world, processed_data 
+from pathlib import Path
+from dagster import definitions, load_from_defs_folder
 
-defs = Definitions(
-    assets=[hello_world, processed_data],
-    jobs=[],
-)
+@definitions
+def defs():
+    return load_from_defs_folder(project_root=Path(__file__))
