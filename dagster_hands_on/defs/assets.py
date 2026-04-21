@@ -1,5 +1,6 @@
 import pandas as pd
 
+from dagster_duckdb import DuckDBResource
 import dagster as dg
 
 sample_data_file = "dagster_hands_on/defs/data/sample_data.csv"
@@ -27,3 +28,47 @@ def processed_data(context: dg.AssetExecutionContext) -> str:
     context.log.info(f"Saving processed data to {processed_data_file}")
     df.to_csv(processed_data_file, index=False)
     return "Data loaded successfully"
+
+@dg.asset
+def customers(duckdb: DuckDBResource) -> str:
+    url = "https://raw.githubusercontent.com/dbt-labs/jaffle-shop-classic/refs/heads/main/seeds/raw_customers.csv"
+    table_name = "customers"
+    with duckdb.get_connection() as conn:
+        conn.execute(
+            f"""
+            CREATE OR REPLACE TABLE {table_name} AS
+            SELECT *
+            FROM read_csv_auto('{url}')
+            """
+        )
+    return f"Loaded customers data from {url} into DuckDB table {table_name}"
+
+
+@dg.asset
+def orders(duckdb: DuckDBResource) -> str:
+    url = "https://raw.githubusercontent.com/dbt-labs/jaffle-shop-classic/refs/heads/main/seeds/raw_orders.csv"
+    table_name = "orders"
+    with duckdb.get_connection() as conn:
+        conn.execute(
+            f"""
+            CREATE OR REPLACE TABLE {table_name} AS
+            SELECT *
+            FROM read_csv_auto('{url}')
+            """
+        )
+    return f"Loaded orders data from {url} into DuckDB table {table_name}"
+
+
+@dg.asset
+def payments(duckdb: DuckDBResource) -> str:
+    url = "https://raw.githubusercontent.com/dbt-labs/jaffle-shop-classic/refs/heads/main/seeds/raw_payments.csv"
+    table_name = "payments"
+    with duckdb.get_connection() as conn:
+        conn.execute(
+            f"""
+            CREATE OR REPLACE TABLE {table_name} AS
+            SELECT *
+            FROM read_csv_auto('{url}')
+            """
+        )
+    return f"Loaded payments data from {url} into DuckDB table {table_name}"
