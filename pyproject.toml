@@ -18,8 +18,14 @@ dev = [
     "dagster-dg-cli>=1.12.0,<1.13",
 ]
 
+[tool.setuptools.packages.find]
+include = ["dagster_hands_on*"]
+
 [tool.dg]
 directory_type = "project"
 
 [tool.dg.project]
 root_module = "dagster_hands_on"
+registry_modules = [
+    "dagster_hands_on.components.tutorial",
+]
